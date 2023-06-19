@@ -1,8 +1,11 @@
 using UnityEngine;
 namespace TUtils.Test{
-    public static class TestAdvancedPlayerPrefs{
-        static int total = 0, success = 0;
-        static void Assert<T>(string testName, T actual, T expected, bool expectedEqual = true){
+    public class TestAdvancedPlayerPrefs : MonoBehaviour{
+        void Start(){
+            TestAll();
+        }
+        int total = 0, success = 0;
+        void Assert<T>(string testName, T actual, T expected, bool expectedEqual = true){
             ++total;
             if (actual.Equals(expected) == expectedEqual){
                 Debug.Log($"Test \"{testName}\" yields good result. Expected " + (expectedEqual ? "" : "not ") + $"{expected}. Got {actual}");
@@ -12,8 +15,7 @@ namespace TUtils.Test{
                 throw new System.Exception("Test failed.");
             }
         }
-        [RuntimeInitializeOnLoadMethod]
-        static void TestAll(){
+        void TestAll(){
             string prefix = TestUtils.RandomString(), password = TestUtils.RandomString();
             //Debug.Log(prefix);
             AdvancedPlayerPrefs gsm1 = new AdvancedPlayerPrefs(prefix, password);
@@ -41,7 +43,7 @@ namespace TUtils.Test{
         
         delegate void SetFunction<T> (string key, T value);
         delegate T GetFunction<T> (string key, T defaultValue);
-        static void TestConsistency<T>(SetFunction<T> sf, GetFunction<T> gf, T[] testValues){
+        void TestConsistency<T>(SetFunction<T> sf, GetFunction<T> gf, T[] testValues){
             string[] testKeys = TestUtils.GenerateStringTestValues();
             foreach (string key in testKeys)
             foreach (T value in testValues){
@@ -49,7 +51,7 @@ namespace TUtils.Test{
                 Assert($"Test consistency {key} - {value}", gf.Invoke(key, default(T)), value);
             }
         }
-        static void TestPrefix<T>(SetFunction<T> sf, string prefix, T[] testValues){
+        void TestPrefix<T>(SetFunction<T> sf, string prefix, T[] testValues){
             string[] testKeys = TestUtils.GenerateStringTestValues();
             foreach (string key in testKeys)
             foreach (T value in testValues){
