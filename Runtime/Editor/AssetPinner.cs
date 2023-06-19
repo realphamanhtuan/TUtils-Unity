@@ -145,7 +145,7 @@ namespace TUtils{
         [MenuItem("Assets/TUtils/AssetPinner/Pin to 5")]
         public static void PinTo5(){Pin(5);}
         
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve Next")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve Next &`")]
         public static void RetrieveNext(){Retrieve(GetNextFoundOrRetrieved());}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve Next", true)]
         public static bool ValidateRetrieveNext(){
@@ -153,23 +153,23 @@ namespace TUtils{
                 if (GetGUID(i) != null) return true;
             return false;
         }
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 1")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 1 &1")]
         public static void Retrieve1(){Retrieve(1);}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve 1", true)]
         public static bool ValidateRetrieve1(){return GetGUID(1) != null;}
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 2")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 2 &2")]
         public static void Retrieve2(){Retrieve(2);}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve 2", true)]
         public static bool ValidateRetrieve2(){return GetGUID(2) != null;}
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 3")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 3 &3")]
         public static void Retrieve3(){Retrieve(3);}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve 3", true)]
         public static bool ValidateRetrieve3(){return GetGUID(3) != null;}
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 4")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 4 &4")]
         public static void Retrieve4(){Retrieve(4);}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve 4", true)]
         public static bool ValidateRetrieve4(){return GetGUID(4) != null;}
-        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 5")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 5 &5")]
         public static void Retrieve5(){Retrieve(5);}
         [MenuItem("Assets/TUtils/AssetPinner/Retrieve 5", true)]
         public static bool ValidateRetrieve5(){return GetGUID(5) != null;}

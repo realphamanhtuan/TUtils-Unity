@@ -5,7 +5,9 @@ using System.Collections;
 
 namespace TUtils{
     public static class Watcher {
-        public class Agent : MonoBehaviour{
+        // for When clauses
+        public delegate bool ConditionTestFunction();
+        class Agent : MonoBehaviour{
             public IEnumerator WaitAndDo(float waitTime, Action action, bool useUnscaledTime)
             {
                 if (waitTime > 0)
@@ -28,7 +30,6 @@ namespace TUtils{
                 yield return new WaitForEndOfFrame();
                 Sandbox.Execute(action);
             }
-            public delegate bool ConditionTestFunction();
             public IEnumerator WaitForConditionAndDo(ConditionTestFunction condition, Action action, float maxWaitScaledTime, float maxWaitUnscaledTime, int maxWaitFrame, Action onTimeout) {
                 if (action == null)
                 {
@@ -172,7 +173,7 @@ namespace TUtils{
             return null;
         }
         ///<summary>Schedule an action to run once when the condition is true. The Action WILL NOT RUN if Watcher can't create an instance of itself. Set globally to true to run under DontDestroyOnLoad instance</summary>
-        public static Coroutine ScheduleWhen(Agent.ConditionTestFunction condition, Action action, bool globally, float maxWaitScaledTime = float.MaxValue, float maxWaitUnscaledTime = float.MaxValue, int maxWaitFrame = int.MaxValue, Action onTimeout = null) {
+        public static Coroutine ScheduleWhen(ConditionTestFunction condition, Action action, bool globally, float maxWaitScaledTime = float.MaxValue, float maxWaitUnscaledTime = float.MaxValue, int maxWaitFrame = int.MaxValue, Action onTimeout = null) {
             Agent instance = GetInstance(globally);
             if (instance != null) {
                 if (condition == null) {
@@ -206,7 +207,7 @@ namespace TUtils{
             }
             return instance.StartCoroutine(instance.RunEveryNSeconds(action, secondsInterval, runNow, useUnscaledTime));
         }
-        public static Coroutine RunMeEveryFrameWhen(Agent.ConditionTestFunction condition, Action action, bool runNow, bool globally) {
+        public static Coroutine RunMeEveryFrameWhen(ConditionTestFunction condition, Action action, bool runNow, bool globally) {
             Agent instance = GetInstance(globally);
             if (instance != null) {
                 if (condition == null) {

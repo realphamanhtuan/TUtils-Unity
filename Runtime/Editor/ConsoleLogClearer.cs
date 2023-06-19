@@ -4,7 +4,7 @@ using System.Reflection;
 using System;
 namespace TUtils{
     public class ConsoleLogClearer : Editor{
-        [MenuItem("TUtils/Clear Developer Console Log")]
+        [MenuItem("TUtils/Clear Developer Console Log %DEL")]
         public static void ClearConsoleLog(){
             Assembly assembly = Assembly.GetAssembly (typeof(SceneView));
             Type logEntries = assembly.GetType ("UnityEditor.LogEntries");

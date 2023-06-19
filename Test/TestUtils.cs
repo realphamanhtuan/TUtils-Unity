@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-namespace TUtils{
+namespace TUtils.Test{
     public static class TestUtils{
         public static string RandomString(int length = 16){
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
