@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TFramework
+namespace TUtils
 {
     public static class CommonExtension{
         /// <summary>

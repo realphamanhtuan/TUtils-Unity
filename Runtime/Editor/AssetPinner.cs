@@ -5,7 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
-namespace TFramework{
+namespace TUtils{
     public class AssetPinner : Editor
     {
         ///EDITOR OPERATION REGION
@@ -34,7 +34,7 @@ namespace TFramework{
         ///END EDITOR OPERATION REGION
 
         ///PREF PREFIX REGION
-        const string prefPrefix = "TFramework_AssetPinner";
+        const string prefPrefix = "TUtils_AssetPinner";
         static string GetPrefPrefix(){
             return prefPrefix + "_" + Application.productName;
         }
@@ -46,7 +46,7 @@ namespace TFramework{
         }
         static string GetGUID(int index){
             string path = EditorPrefs.GetString(PathKey(index), null);
-            return !Supporter.IsStrNull(path) ? path : null;
+            return !string.IsNullOrWhiteSpace(path) ? path : null;
         }
         static void SetPath(int index, string path){
             EditorPrefs.SetString(PathKey(index), path);
@@ -54,7 +54,7 @@ namespace TFramework{
         static bool Pin(int index){
             string key = PathKey(index);
             string guid = GetCurrentSelectionGuid();
-            if (Supporter.IsStrNull(guid)) return false;
+            if (string.IsNullOrWhiteSpace(guid)) return false;
             EditorPrefs.SetString(key, guid);
             SetLastUseUTC(index);
             Tebug.Log(AssetDatabase.GUIDToAssetPath(guid), "->", index);
@@ -62,7 +62,7 @@ namespace TFramework{
         }
         static bool Retrieve(int index){
             string guid = EditorPrefs.GetString(PathKey(index));
-            if (!Supporter.IsStrNull(guid)){
+            if (!string.IsNullOrWhiteSpace(guid)){
                 if (!Select(guid, true)) return false;
                 SetLastUseUTC(index);
                 SetLastFoundOrRetrieved(index);
@@ -72,7 +72,7 @@ namespace TFramework{
         }
         static bool Find(int index){
             string guid = EditorPrefs.GetString(PathKey(index));
-            if (!Supporter.IsStrNull(guid)){
+            if (!string.IsNullOrWhiteSpace(guid)){
                 if (!Select(guid, false)) return false;
                 SetLastUseUTC(index);
                 SetLastFoundOrRetrieved(index);
@@ -89,10 +89,10 @@ namespace TFramework{
         }
         static int GetLRUIndex(){
             string pathToCheckIfAlreadyPinned = GetCurrentSelectionGuid();
-            if (!Supporter.IsStrNull(pathToCheckIfAlreadyPinned)){
+            if (!string.IsNullOrWhiteSpace(pathToCheckIfAlreadyPinned)){
                 for (int i = 1; i < 6; ++i){
                     string iPath = GetGUID(i);
-                    if (!Supporter.IsStrNull(iPath) && iPath.Equals(pathToCheckIfAlreadyPinned))
+                    if (!string.IsNullOrWhiteSpace(iPath) && iPath.Equals(pathToCheckIfAlreadyPinned))
                         return i;
                 }
             }
@@ -118,7 +118,7 @@ namespace TFramework{
             int nextFoundOrRetrieved = (EditorPrefs.GetInt(LastFoundOrRetrievedIndexKey(), 0)) % 5 + 1;
             for (int i = 0; i < 5; ++i) {//5 tries
                 string guid = GetGUID(nextFoundOrRetrieved);
-                if (guid != null && !Supporter.IsStrNull(AssetDatabase.GUIDToAssetPath(guid))){
+                if (guid != null && !string.IsNullOrWhiteSpace(AssetDatabase.GUIDToAssetPath(guid))){
                     EditorPrefs.SetInt(LastFoundOrRetrievedIndexKey(), nextFoundOrRetrieved);
                     return nextFoundOrRetrieved;
                 } else {
@@ -132,78 +132,78 @@ namespace TFramework{
         }
         ///END ADVANCED REGION
 
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to LRU slot")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to LRU slot")]
         public static void PinToLRUSlot(){Pin(GetLRUIndex());}
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to 1")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to 1")]
         public static void PinTo1(){Pin(1);}
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to 2")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to 2")]
         public static void PinTo2(){Pin(2);}
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to 3")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to 3")]
         public static void PinTo3(){Pin(3);}
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to 4")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to 4")]
         public static void PinTo4(){Pin(4);}
-        [MenuItem("Assets/TFramework/AssetPinner/Pin to 5")]
+        [MenuItem("Assets/TUtils/AssetPinner/Pin to 5")]
         public static void PinTo5(){Pin(5);}
         
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve Next")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve Next")]
         public static void RetrieveNext(){Retrieve(GetNextFoundOrRetrieved());}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve Next", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve Next", true)]
         public static bool ValidateRetrieveNext(){
             for (int i = 1; i < 6; ++i)
                 if (GetGUID(i) != null) return true;
             return false;
         }
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 1")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 1")]
         public static void Retrieve1(){Retrieve(1);}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 1", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 1", true)]
         public static bool ValidateRetrieve1(){return GetGUID(1) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 2")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 2")]
         public static void Retrieve2(){Retrieve(2);}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 2", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 2", true)]
         public static bool ValidateRetrieve2(){return GetGUID(2) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 3")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 3")]
         public static void Retrieve3(){Retrieve(3);}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 3", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 3", true)]
         public static bool ValidateRetrieve3(){return GetGUID(3) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 4")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 4")]
         public static void Retrieve4(){Retrieve(4);}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 4", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 4", true)]
         public static bool ValidateRetrieve4(){return GetGUID(4) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 5")]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 5")]
         public static void Retrieve5(){Retrieve(5);}
-        [MenuItem("Assets/TFramework/AssetPinner/Retrieve 5", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Retrieve 5", true)]
         public static bool ValidateRetrieve5(){return GetGUID(5) != null;}
 
-        [MenuItem("Assets/TFramework/AssetPinner/Find Next")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find Next")]
         public static void FindNext(){Find(GetNextFoundOrRetrieved());}
-        [MenuItem("Assets/TFramework/AssetPinner/Find Next", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find Next", true)]
         public static bool ValidateFindNext(){
             for (int i = 1; i < 6; ++i)
                 if (GetGUID(i) != null) return true;
             return false;
         }
-        [MenuItem("Assets/TFramework/AssetPinner/Find 1")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 1")]
         public static void Find1(){Find(1);}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 1", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 1", true)]
         public static bool ValidateFind1(){return GetGUID(1) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 2")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 2")]
         public static void Find2(){Find(2);}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 2", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 2", true)]
         public static bool ValidateFind2(){return GetGUID(2) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 3")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 3")]
         public static void Find3(){Find(3);}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 3", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 3", true)]
         public static bool ValidateFind3(){return GetGUID(3) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 4")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 4")]
         public static void Find4(){Find(4);}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 4", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 4", true)]
         public static bool ValidateFind4(){return GetGUID(4) != null;}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 5")]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 5")]
         public static void Find5(){Find(5);}
-        [MenuItem("Assets/TFramework/AssetPinner/Find 5", true)]
+        [MenuItem("Assets/TUtils/AssetPinner/Find 5", true)]
         public static bool ValidateFind5(){return GetGUID(5) != null;}
 
-        [MenuItem("Assets/TFramework/AssetPinner/Clear All Pins")]
+        [MenuItem("Assets/TUtils/AssetPinner/Clear All Pins")]
         public static void ClearAllPins(){
             for (int i = 1; i < 6; ++i){
                 EditorPrefs.DeleteKey(PathKey(i));

@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System;
-namespace TFramework{
+namespace TUtils{
     public class ConsoleLogClearer : Editor{
-        [MenuItem("TFramework/Clear Developer Console Log")]
+        [MenuItem("TUtils/Clear Developer Console Log")]
         public static void ClearConsoleLog(){
             Assembly assembly = Assembly.GetAssembly (typeof(SceneView));
             Type logEntries = assembly.GetType ("UnityEditor.LogEntries");
