@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-namespace UnityAdvancedPlayerPrefs{
+namespace TUtils{
     internal class LongPrefItem : PrefItem{
         internal long value;
         internal LongPrefItem(long value){

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-namespace UnityAdvancedPlayerPrefs{
+namespace TUtils{
     internal class BoolPrefItem : PrefItem{
         internal bool value;
         internal BoolPrefItem(bool value){

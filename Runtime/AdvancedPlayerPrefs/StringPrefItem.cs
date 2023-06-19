@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Text;
 
-namespace UnityAdvancedPlayerPrefs{
+namespace TUtils{
     internal class StringPrefItem : PrefItem{
         internal string value;
         private Encoding encoding;

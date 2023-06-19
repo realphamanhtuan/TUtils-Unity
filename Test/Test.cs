@@ -1,6 +1,6 @@
 using UnityEngine;
-namespace UnityAdvancedPlayerPrefs{
-    public static class Test{
+namespace TUtils.Test{
+    public static class TestAdvancedPlayerPrefs{
         static int total = 0, success = 0;
         static void Assert<T>(string testName, T actual, T expected, bool expectedEqual = true){
             ++total;
@@ -16,8 +16,8 @@ namespace UnityAdvancedPlayerPrefs{
         static void TestAll(){
             string prefix = TestUtils.RandomString(), password = TestUtils.RandomString();
             //Debug.Log(prefix);
-            GameSettingManager gsm1 = new GameSettingManager(prefix, password);
-            GameSettingManager gsm2 = new GameSettingManager(prefix, password);
+            AdvancedPlayerPrefs gsm1 = new AdvancedPlayerPrefs(prefix, password);
+            AdvancedPlayerPrefs gsm2 = new AdvancedPlayerPrefs(prefix, password);
 
             // TestPrefix(gsm1.SetBool, prefix, TestUtils.GenerateBoolTestValues());
             // TestPrefix(gsm1.SetColor32, prefix, TestUtils.GenerateColor32TestValues());

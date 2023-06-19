@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-namespace UnityAdvancedPlayerPrefs{
+namespace TUtils{
     internal class DoublePrefItem : PrefItem{
         internal double value;
         internal DoublePrefItem(double value){

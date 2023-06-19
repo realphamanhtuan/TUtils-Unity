@@ -4,14 +4,14 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UnityAdvancedPlayerPrefs{
-    public class GameSettingManager{
+namespace TUtils{
+    public class AdvancedPlayerPrefs{
         /// <summary>
         /// Data stored in the playerPrefs will have the key format of the following {keyPrefix}_{realKey}_value and {keyPrefix}_{realKey}_salt
         /// </summary>
         /// <param name="keyPrefix"></param>
         /// <param name="password"></param>
-        public GameSettingManager(string keyPrefix = "", string password = ""){
+        public AdvancedPlayerPrefs(string keyPrefix = "", string password = ""){
             encryptor = Aes.Create();
             this.keyPrefix = keyPrefix;
             this.password = password;

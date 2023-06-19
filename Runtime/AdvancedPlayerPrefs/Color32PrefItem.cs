@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-namespace UnityAdvancedPlayerPrefs{
-    internal class IntPrefItem : PrefItem{
-        internal int value;
-        internal IntPrefItem(int value){
+namespace TUtils{
+    internal class Color32PrefItem : PrefItem{
+        internal Color32 value;
+        internal Color32PrefItem(Color32 value){
             this.value = value;
         }
         internal override int GetRawBytesLength()
@@ -14,11 +14,15 @@ namespace UnityAdvancedPlayerPrefs{
         }
         internal override byte[] ExportRawBytes()
         {
-            return ByteHelper.IntToBytesLittleEndian(value, 4);
+            return new byte[]{value.r, value.g, value.b, value.a};
         }
         internal override bool ImportRawBytes(byte[] bytes)
         {
-            value = ByteHelper.BytesToIntLittleEndian(bytes);
+            if (bytes.Length < 4) return false;
+            value.r = bytes[0];
+            value.g = bytes[1];
+            value.b = bytes[2];
+            value.a = bytes[3];
             return true;
         }
     }

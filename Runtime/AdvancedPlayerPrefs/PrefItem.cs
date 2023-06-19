@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-namespace UnityAdvancedPlayerPrefs{
+namespace TUtils{
     internal abstract class PrefItem {
         internal abstract int GetRawBytesLength();
         internal abstract byte[] ExportRawBytes();
