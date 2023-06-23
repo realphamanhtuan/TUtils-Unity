@@ -1,0 +1,18 @@
+{
+    "name": "tutils-unity.Editor",
+    "rootNamespace": "TUtils",
+    "references": [
+        "tutils-unity"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
